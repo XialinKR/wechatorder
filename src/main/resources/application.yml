@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.93.131:3306/wechatorder?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+#�ӳټ���
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+#全局的null不显示
+#  jackson:
+#    default-property-inclusion: non_null
+##�Զ�����
+#    hibernate:
+#      ddl-auto: update
+#logging:
+#  pattern:
+#    console: "%d-%msg%n"
+#  level:
+#    root: debug
+server:
+  servlet:
+    context-path: /sell
+wechat:
+  mpAppId: wx4a1f7cad8d6e341f
+  mpAppSecret: 32f858d5c4c8f4a490247509a945eeb4
+  mchId: asdd
+  mchKey: adsa
+  keyPath: adasda
+  notifyUrl: http://wcs.natapp1.cc/sell/pay/notify
