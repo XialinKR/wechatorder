@@ -19,12 +19,12 @@ public class OrderDetailRepositoryTest extends WechatorderApplicationTests{
     @Test
     public void saveTest(){
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setDetailId("1234567899");
-        orderDetail.setOrderId("11111113");
+        orderDetail.setDetailId("xxxx");
+        orderDetail.setOrderId("xxx");
         orderDetail.setProductIcon("http://xxxx.png");
-        orderDetail.setProductId("111111112");
-        orderDetail.setProductName("皮蛋粥");
-        orderDetail.setProductPrice(new BigDecimal(2.2));
+        orderDetail.setProductId("xxx");
+        orderDetail.setProductName("xxx");
+        orderDetail.setProductPrice(new BigDecimal(2.0));
         orderDetail.setProductQuantity(2);
         OrderDetail result = repository.save(orderDetail);
         Assert.assertNotNull(result);

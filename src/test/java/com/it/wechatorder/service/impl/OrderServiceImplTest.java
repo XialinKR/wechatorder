@@ -82,4 +82,11 @@ public class OrderServiceImplTest extends WechatorderApplicationTests{
         OrderDTO result = service.paid(orderDTO);
         Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
     }
+
+    @Test
+    public void findList1() {
+        PageRequest pageRequest = new PageRequest(0,1);
+        Page page = service.findList(pageRequest);
+        Assert.assertTrue("查询所有订单列表",page.getTotalElements()>0);
+    }
 }
