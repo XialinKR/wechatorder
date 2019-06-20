@@ -90,6 +90,7 @@ public class OrderServiceImpl implements OrderService{
                 .map(e->new CartDTO(e.getProductId(),e.getProductQuantity()))
                 .collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+
         webSocket.sendMessage("您有新的订单了"+orderDTO.getOrderId());
         return orderDTO;
     }

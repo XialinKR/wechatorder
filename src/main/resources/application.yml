@@ -10,6 +10,10 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
+  redis:
+    host: 192.168.93.132
+    port: 6379
+    password:
 #全局的null不显示
 #  jackson:
 #    default-property-inclusion: non_null
