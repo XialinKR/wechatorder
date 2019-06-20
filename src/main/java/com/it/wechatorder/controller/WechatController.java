@@ -35,7 +35,7 @@ public class WechatController {
     public String authorize(@RequestParam("returnUrl") String returnUrl) {
         //1. 配置
         //2. 调用方法
-        String url = projectUrlConfig +"sell/wechat/useInfo";
+        String url = projectUrlConfig.wechatMpAuthorize +"sell/wechat/useInfo";
         String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url,
                 WxConsts.OAUTH2_SCOPE_USER_INFO, URLEncoder.encode(returnUrl));
         log.info("【微信网页授权】获得code，redirectUrl={}",redirectUrl);
@@ -62,7 +62,7 @@ public class WechatController {
     public String qrAuthorize(@RequestParam("returnUrl") String returnUrl) {
         //1. 配置
         //2. 调用方法
-        String url = projectUrlConfig +"sell/wechat/qrUseInfo";
+        String url = projectUrlConfig.wechatOpenAuthorize +"sell/wechat/qrUseInfo";
         String redirectUrl = wxOpenService.oauth2buildAuthorizationUrl(url,
                 WxConsts.OAUTH2_SCOPE_USER_INFO, URLEncoder.encode(returnUrl));
         log.info("【微信网页授权】获得code，redirectUrl={}",redirectUrl);
