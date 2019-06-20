@@ -53,26 +53,26 @@ public class PayServiceImpl implements PayService{
         //2.支付的状态
         //3.支付金额
         //4.支付人（下单人==支付人）
-        PayResponse payResponse = bestPayService.asyncNotify(notifydata);
-        log.info("【微信支付】异步通知，payResponse={}",JsonUtil.toJson(payResponse));
-        //查询订单
-        OrderDTO orderDTO = orderService.findOne(payResponse.getOrderId());
-        //查询订单是否存在
-        if (orderDTO==null){
-            log.error("c订单不存在,orderId={}",orderDTO.getOrderId());
-            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
-        }
-        //查询订单金额是否一致
-        if (!MathUtil.equal(payResponse.getOrderAmount(),orderDTO.getOrderAmount().doubleValue())){
-            log.error("【微信支付】异步通知,订单金额不一致，orderId={},微信通知金额={}，系统金额={}",
-                    payResponse.getOrderId(),
-                    payResponse.getOrderAmount(),
-                    orderDTO.getOrderAmount());
-            throw new SellException(ResultEnum.WXPAY_NOTIFY_MONEY_VERIFY_ERROR);
-        }
-        //修改订单支付状态
-        orderService.paid(orderDTO);
-        return payResponse;
+//        PayResponse payResponse = bestPayService.asyncNotify(notifydata);
+//        log.info("【微信支付】异步通知，payResponse={}",JsonUtil.toJson(payResponse));
+////        查询订单
+//        OrderDTO orderDTO = orderService.findOne(payResponse.getOrderId());
+//        //查询订单是否存在
+//        if (orderDTO==null){
+//            log.error("c订单不存在,orderId={}",orderDTO.getOrderId());
+//            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+//        }
+//        //查询订单金额是否一致
+//        if (!MathUtil.equal(payResponse.getOrderAmount(),orderDTO.getOrderAmount().doubleValue())){
+//            log.error("【微信支付】异步通知,订单金额不一致，orderId={},微信通知金额={}，系统金额={}",
+//                    payResponse.getOrderId(),
+//                    payResponse.getOrderAmount(),
+//                    orderDTO.getOrderAmount());
+//            throw new SellException(ResultEnum.WXPAY_NOTIFY_MONEY_VERIFY_ERROR);
+//        }
+//        //修改订单支付状态
+//        orderService.paid(orderDTO);
+        return new PayResponse();
     }
 
     @Override

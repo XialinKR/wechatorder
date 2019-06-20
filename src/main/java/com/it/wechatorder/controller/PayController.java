@@ -1,6 +1,7 @@
 package com.it.wechatorder.controller;
 
 import com.it.wechatorder.dto.OrderDTO;
+import com.it.wechatorder.enums.PayStatusEnum;
 import com.it.wechatorder.enums.ResultEnum;
 import com.it.wechatorder.exception.SellException;
 import com.it.wechatorder.form.OrderForm;
@@ -39,15 +40,16 @@ public class PayController {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         //发起支付
-        PayResponse payResponse = payService.create(orderDTO);
-        map.put("payResponse",payResponse);
+      //  PayResponse payResponse = payService.create(orderDTO);
+      //  map.put("payResponse",payResponse);
         map.put("returnUrl",returnUrl);
+        orderService.paid(orderDTO);
         return new ModelAndView("pay/create",map);
     }
 
     @PostMapping("/notify")
     public ModelAndView notify(String data){
-        payService.notify(data);
+//        payService.notify(data);
         //返回给微信处理结果
         return new ModelAndView("pay/success");
     }

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Data
 //@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)过时
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
     /*订单id*/
@@ -35,10 +35,10 @@ public class OrderDTO {
     /*支付状态，默认为0未支付*/
     private Integer payStatus;
     /*创建时间*/
-//    @JsonSerialize(using = Date2LongSerializer.class)
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
     /*更新时间*/
-//    @JsonSerialize(using = Date2LongSerializer.class)
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     private List<OrderDetail> orderDetailList;

@@ -142,7 +142,7 @@ public class OrderServiceImpl implements OrderService{
         //如果已支付，需要退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())){
             //TODO
-            payService.refund(orderDTO);
+//            payService.refund(orderDTO);
         }
         return orderDTO;
     }
