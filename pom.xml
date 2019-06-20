@@ -94,6 +94,18 @@
 			<version>2.1.5.RELEASE</version>
 		</dependency>
 
+        <!--Spring Boot Configuration Annotation Proessor not found in classpath解决办法-->
+		<dependency>
+			<groupId> org.springframework.boot </groupId>
+			<artifactId> spring-boot-configuration-processor </artifactId>
+			<optional> true </optional>
+		</dependency>
+
+		<!--websocket-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

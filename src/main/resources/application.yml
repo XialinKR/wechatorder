@@ -27,7 +27,15 @@ server:
 wechat:
   mpAppId: wx4a1f7cad8d6e341f
   mpAppSecret: 32f858d5c4c8f4a490247509a945eeb4
+  openAppId: wx3753d6f2aa0719ff
+  openAppSecret: 5be9efb06fc54cef1d2ab65889496b16
   mchId: asdd
   mchKey: adsa
   keyPath: adasda
   notifyUrl: http://wcs.natapp1.cc/sell/pay/notify
+  templateId:
+    orderStatus: g8mfbdKthMOku2rYi6wxh-KHFEePKsiubey5A1LEQT8
+projecturl:
+  wechatMpAuthroize: http://wcs.natapp1.cc/
+  String wechatOpenAuthroize: http://wcs.natapp1.cc/
+  sell:

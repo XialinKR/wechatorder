@@ -11,7 +11,7 @@
             <div class="alert alert-success">
                 <h4>
                     成功!
-                </h4> <strong>${msg}</strong> <a href="${url}" class="alert-link">3秒后自动跳转</a>
+                </h4> <strong>${msg!""}</strong> <a href="${url}" class="alert-link">3秒后自动跳转</a>
             </div>
         </div>
     </div>

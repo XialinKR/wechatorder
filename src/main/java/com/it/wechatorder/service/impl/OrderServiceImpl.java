@@ -1,5 +1,6 @@
 package com.it.wechatorder.service.impl;
 
+import com.it.wechatorder.service.WebSocket;
 import com.it.wechatorder.converter.OrderMaster2OrderDTOConverter;
 import com.it.wechatorder.domain.OrderDetail;
 import com.it.wechatorder.domain.OrderMaster;
@@ -15,6 +16,7 @@ import com.it.wechatorder.repository.OrderMasterRepository;
 import com.it.wechatorder.service.OrderService;
 import com.it.wechatorder.service.PayService;
 import com.it.wechatorder.service.ProductService;
+import com.it.wechatorder.service.PushMessage;
 import com.it.wechatorder.uitls.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +48,13 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private PayService payService;
+
+    @Autowired
+    private PushMessage pushMessage;
+
+    @Autowired
+    private WebSocket webSocket;
+
 
     @Override
     @Transactional
@@ -81,6 +90,7 @@ public class OrderServiceImpl implements OrderService{
                 .map(e->new CartDTO(e.getProductId(),e.getProductQuantity()))
                 .collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+        webSocket.sendMessage("您有新的订单了"+orderDTO.getOrderId());
         return orderDTO;
     }
 
@@ -154,6 +164,7 @@ public class OrderServiceImpl implements OrderService{
             log.error("【完结订单】更新失败，updateResult={}",updateResult);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+        pushMessage.orderStatus(orderDTO);
         return orderDTO;
     }
 
