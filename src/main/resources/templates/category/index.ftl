@@ -11,7 +11,7 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row clearfix">
-                <div class="col-md-12 column">
+                <div class="col-xs-4 column">
                     <form method="post" action="/sell/seller/category/save">
                         <div class="form-group">
                             <label>名字</label>

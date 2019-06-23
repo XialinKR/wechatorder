@@ -41,5 +41,5 @@ wechat:
     orderStatus: g8mfbdKthMOku2rYi6wxh-KHFEePKsiubey5A1LEQT8
 projecturl:
   wechatMpAuthorize: http://wcs.natapp1.cc
-  String wechatOpenAuthroize: http://wcs.natapp1.cc
-  sell:
+  wechatOpenAuthroize: http://wcs.natapp1.cc
+  sell: http://wcs.natapp1.cc

@@ -29,7 +29,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/seller/product")
-public class SellProductController {
+public class SellerProductController {
 
     @Autowired
     private ProductService productService;

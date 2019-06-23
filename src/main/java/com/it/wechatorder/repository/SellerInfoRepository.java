@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface SellerInfoRepository extends JpaRepository<SellerInfo,String>{
 
     SellerInfo findByOpenid(String openid);
+
+    SellerInfo findByPhoneAndPassword(String phone,String password);
+
+    SellerInfo findByPhone(String phone);
 }
