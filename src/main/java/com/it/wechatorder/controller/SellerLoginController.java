@@ -37,7 +37,6 @@ public class SellerLoginController {
     private RedisTemplate redisTemplate;
 
     @Autowired
-    @Qualifier("redisTemplate")
     private RestTemplate restTemplate;
 
     @Autowired
@@ -124,6 +123,11 @@ public class SellerLoginController {
         if (StringUtil.haslength(username)&&StringUtil.haslength(password)&&StringUtil.haslength(code)&&StringUtil.haslength(phone)){
             if (sellerInfo!=null){
                 map.put("msg","亲，该手机号已经注册了呦");
+                map.put("url","/sell/seller/login/create");
+                return new ModelAndView("common/error",map);
+            }
+            if (phone.length()!=11){
+                map.put("msg","亲，该手机号输入错误了呦");
                 map.put("url","/sell/seller/login/create");
                 return new ModelAndView("common/error",map);
             }

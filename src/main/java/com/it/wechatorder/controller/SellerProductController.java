@@ -15,6 +15,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,7 @@ public class SellerProductController {
     public ModelAndView list(@RequestParam(value = "page",defaultValue = "1") Integer page,
                              @RequestParam(value = "size",defaultValue = "4") Integer size,
                              Map<String,Object> map){
+
         PageRequest pageRequest = new PageRequest(page-1,size);
         Page<ProductInfo>  productInfoPage= productService.findAll(pageRequest);
         map.put("productInfoPage",productInfoPage);

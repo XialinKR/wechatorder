@@ -69,15 +69,16 @@
                         <input type="text" class="form-control" id="exampleInputName2" placeholder="mobile" name="phone" value="${phone!''}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputName2">密码</label>
-                        <input type="password" class="form-control" id="exampleInputEmail2" placeholder="password" name="password" value="${password!''}">
+                        <label for="exampleInputName2"><#if sign!="0">新</#if>密码</label>
+                        <input type="password" class="form-control" onkeyup="compare()" id="onePassword" placeholder="password" name="password" value="${password!''}">
                     </div>
-                    <#--<#if sign!="0">-->
-                        <#--<div class="form-group">-->
-                            <#--<label for="exampleInputName2">再次确认密码</label>-->
-                            <#--<input type="password" class="form-control" id="exampleInputEmail2" placeholder="password" name="password" value="${password!''}">-->
-                        <#--</div>-->
-                    <#--</#if>-->
+                    <#if sign!="0">
+                        <div class="form-group">
+                            <label for="exampleInputName2">再次确认密码</label>
+                            <input type="password" class="form-control" onkeyup="compare()" id="twoPassword" placeholder="password">
+                        </div>
+                    <div id="ts"></div>
+                    </#if>
                     <div class="form-group">
                         <label for="exampleInputName2">验证码</label>
                         <input type="text" class="form-control" id="exampleInputEmail2" placeholder="" name="code" value="${code!''}">
@@ -113,7 +114,15 @@
         })
     })
 
-
+    function compare(){
+        var a=document.getElementById('onePassword').value;
+        var b=document.getElementById('twoPassword').value;
+        if(a==b){
+            document.getElementById('ts').innerHTML="密码一致!";
+        }else{
+            document.getElementById('ts').innerHTML="两次密码不一致!";
+        }
+    }
 
 </script>
 </body>
