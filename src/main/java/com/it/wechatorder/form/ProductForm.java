@@ -3,6 +3,7 @@ package com.it.wechatorder.form;
 import lombok.Data;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data

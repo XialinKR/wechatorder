@@ -1,6 +1,7 @@
 package com.it.wechatorder.controller;
 
 import com.it.wechatorder.config.ProjectUrlConfig;
+import com.it.wechatorder.config.WechatAccountConfig;
 import com.it.wechatorder.enums.ResultEnum;
 import com.it.wechatorder.exception.SellException;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,9 @@ public class WechatController {
     @Autowired
     private ProjectUrlConfig projectUrlConfig;
 
+    @Autowired
+    private WechatAccountConfig wechatAccountConfig;
+
     @GetMapping("/authorize")
     public String authorize(@RequestParam("returnUrl") String returnUrl) {
         //1. 配置
@@ -55,6 +59,7 @@ public class WechatController {
             throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(), e.getError().getErrorMsg());
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
+        //        String s = wxOpenService.buildQrConnectUrl(wxOpenService.g.toString(), openId, "zh_CN");
         return "redirect:"+returnUrl+"?openid="+openId;
     }
 

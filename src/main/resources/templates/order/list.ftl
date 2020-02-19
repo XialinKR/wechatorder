@@ -16,7 +16,7 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th>订单</th>
+                                <th>订单编号</th>
                                 <th>姓名</th>
                                 <th>手机号</th>
                                 <th>地址</th>
@@ -37,7 +37,7 @@
                                 <td>${orderDTOPage.orderAmount}</td>
                                 <td>${orderDTOPage.getOrderStatusEnum().message}</td>
                                 <td>${orderDTOPage.getPayStatusEnum().message}</td>
-                                <td>${orderDTOPage.createTime}</td>
+                                <td>${orderDTOPage.createTime?string('yyyy-MM-dd hh:mm:ss')}</td>
                                 <td><a href="/sell/seller/order/detail?orderId=${orderDTOPage.orderId}">详情</a></td>
                                 <td>
                                     <#if orderDTOPage.getOrderStatusEnum().message=="新下单">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-12 column">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination">
+                            <ul class="pagination  pull-right">
                         <#if currentPage lte 1>
                             <li class="disabled">
                                 <a href="#" aria-label="Previous">
@@ -67,13 +67,48 @@
                                 </a>
                             </li>
                         </#if>
-                        <#list 1..orderDTOPage.getTotalPages() as index>
-                            <#if index == currentPage>
+                        <#if orderDTOPage.getTotalPages() lte 5>
+                            <#list 1..orderDTOPage.getTotalPages() as index>
+                                <#if index == currentPage>
                                 <li class="active"><a href="#">${index}</a></li>
-                            <#else>
+                                <#else>
                                 <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                                </#if>
+                            </#list>
+                        <#else>
+                            <#if currentPage gt 2 &&currentPage lt orderDTOPage.getTotalPages()-1>
+                                <#if currentPage-2!=1><li class="disabled"><a href="#">...</a></li></#if>
+                                <#list currentPage-2..currentPage+2 as index>
+                                    <#if index == currentPage>
+                                        <li class="active"><a href="#">${index}</a></li>
+                                    <#else>
+                                        <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                                    </#if>
+                                </#list>
+                                <#if currentPage+2!=orderDTOPage.getTotalPages()><li class="disabled"><a href="#">...</a></li></#if>
+                            <#else>
+                                <#if currentPage==1 || currentPage==2>
+                                    <#list 1..5 as index>
+                                        <#if index == currentPage>
+                                        <li class="active"><a href="#">${index}</a></li>
+                                        <#else>
+                                        <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                                        </#if>
+                                    </#list>
+                                    <li class="disabled"><a href="#">...</a></li>
+                                <#else>
+                                    <li class="disabled"><a href="#">...</a></li>
+                                    <#list orderDTOPage.getTotalPages()-4..orderDTOPage.getTotalPages() as index>
+                                        <#if index == currentPage>
+                                        <li class="active"><a href="#">${index}</a></li>
+                                        <#else>
+                                        <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                                        </#if>
+                                    </#list>
+                                </#if>
                             </#if>
-                        </#list>
+                        </#if>
+
                         <#if currentPage gte orderDTOPage.getTotalPages()>
                             <li class="disabled">
                                 <a href="#" aria-label="Next">
@@ -128,7 +163,8 @@
     <script>
         var websocket = null;
         if('WebSocket' in window) {
-            websocket = new WebSocket('ws://wcs.natapp1.cc/sell/webSocket');
+            // websocket = new WebSocket('ws://wcs.natapp1.cc/sell/webSocket');
+            websocket = new WebSocket('ws://localhost:8080/sell/webSocket');
         }else {
             alert('该浏览器不支持websocket!');
         }

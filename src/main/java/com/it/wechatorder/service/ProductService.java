@@ -27,4 +27,6 @@ public interface ProductService {
     ProductInfo onSale(String productId);
     //下架
     ProductInfo offSale(String productId);
+
+    List<ProductInfo> findAll();
 }

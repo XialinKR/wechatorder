@@ -18,8 +18,8 @@
                             <input name="categoryName" type="text" class="form-control" value="${(category.categoryName)!''}"/>
                         </div>
                         <div class="form-group">
-                            <label>type</label>
-                            <input name="categoryType" type="number" class="form-control" value="${(category.categoryType)!''}"/>
+                            <label>类目编号</label>
+                            <input name="categoryType" type="number" class="form-control" value="${(category.categoryType)!''}" min="1"/>
                         </div>
                         <input hidden type="text" name="categoryId" value="${(category.categoryId)!''}">
                         <button type="submit" class="btn btn-default">提交</button>

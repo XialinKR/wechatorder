@@ -15,13 +15,13 @@
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
-                            <th>商品id</th>
+                            <th>商品编号</th>
                             <th>名称</th>
                             <th>图片</th>
                             <th>单价</th>
                             <th>库存</th>
                             <th>描述</th>
-                            <th>类目</th>
+                            <th>类目编号</th>
                             <th>创建时间</th>
                             <th>修改时间</th>
                             <th colspan="2">操作</th>
@@ -37,9 +37,15 @@
                             <td>${productInfo.productPrice}</td>
                             <td>${productInfo.productStock}</td>
                             <td>${productInfo.productDescription}</td>
-                            <td>${productInfo.categoryType}</td>
-                            <td>${productInfo.createTime}</td>
-                            <td>${productInfo.updateTime}</td>
+                            <td>
+                                <#list productCategoryList as productCategory>
+                                    <#if (productInfo.categoryType)?? && productCategory.categoryType==productInfo.categoryType>
+                                        ${productCategory.categoryName}
+                                    </#if>
+                                </#list>
+                            </td>
+                            <td>${productInfo.createTime?string('yyyy-MM-dd hh:mm:ss')}</td>
+                            <td>${productInfo.updateTime?string('yyyy-MM-dd hh:mm:ss')}</td>
                             <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
                             <td>
                                 <#if productInfo.getProductStatusEnum().msg == "在架">

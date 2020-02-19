@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SellerInfoRepository extends JpaRepository<SellerInfo,String>{
+public interface SellerInfoRepository extends JpaRepository<SellerInfo,Integer>{
 
     SellerInfo findByOpenid(String openid);
 

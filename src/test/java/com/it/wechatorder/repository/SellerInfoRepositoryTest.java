@@ -18,7 +18,7 @@ public class SellerInfoRepositoryTest extends WechatorderApplicationTests{
     @Test
     public void save() {
         SellerInfo sellerInfo = new SellerInfo();
-        sellerInfo.setSellerId("1");
+        sellerInfo.setSellerId(1);
         sellerInfo.setUsername("枉想");
         sellerInfo.setPassword("123");
         sellerInfo.setOpenid("oa-El5hwBMeUETZzQaY9Rfd5m45U");

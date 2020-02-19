@@ -25,8 +25,8 @@ public class WechatPayConfig {
     public WxPayH5Config wxPayH5Config(){
         //微信公众账号支付配置
         WxPayH5Config wxPayH5Config = new WxPayH5Config();
-        wxPayH5Config.setAppId(wechatAccountConfig.getMpAppId());
-        wxPayH5Config.setAppSecret(wechatAccountConfig.getMpAppSecret());
+        wxPayH5Config.setAppId(wechatAccountConfig.getMpAppId1());
+//        wxPayH5Config.setAppSecret(wechatAccountConfig.getMpAppSecret());
         wxPayH5Config.setMchId(wechatAccountConfig.getMchId());
         wxPayH5Config.setMchKey(wechatAccountConfig.getMchKey());
         wxPayH5Config.setNotifyUrl(wechatAccountConfig.getNotifyUrl());

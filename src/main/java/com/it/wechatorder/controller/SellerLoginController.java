@@ -9,9 +9,12 @@ import com.it.wechatorder.uitls.CookieUtil;
 import com.it.wechatorder.uitls.KeyUtil;
 import com.it.wechatorder.uitls.StringUtil;
 import com.lly835.bestpay.rest.type.Post;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateModelException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
-import org.omg.CORBA.TIMEOUT;
+//import org.omg.CORBA.TIMEOUT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -31,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/seller/login")
+@Slf4j
 public class SellerLoginController {
 
     @Autowired
@@ -63,6 +67,8 @@ public class SellerLoginController {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<String> httpEntity = new HttpEntity<String>(json, headers);
         String result = restTemplate.postForObject(url, httpEntity, String.class);
+        log.info(phone);
+        log.info(result);
         return result+param;
     }
 
@@ -76,14 +82,14 @@ public class SellerLoginController {
                              Map<String,Object> map, HttpServletResponse response){
         //1.检验
         String message = loginService.findByPhoneAndPassword(phone,password,code);
-        map.put("phone",phone);
-        map.put("password",password);
         if ("账号密码有错误".equals(message)){
-            map.put("code",code);
-            return new ModelAndView("login/login");
+            map.put("msg","账号密码有误");
+            map.put("url","/sell/seller/login/login");
+            return new ModelAndView("common/success",map);
         }else if ("验证码有错误".equals(message)){
-            map.put("code",code);
-            return new ModelAndView("login/login");
+            map.put("msg","验证码有误");
+            map.put("url","/sell/seller/login/login");
+            return new ModelAndView("common/success",map);
         }
         //2.设置token到redis
         String token = UUID.randomUUID().toString();
@@ -92,7 +98,7 @@ public class SellerLoginController {
         //3.设置token到cookie
         CookieUtil.set(response,CookieConstant.TOKEN,token,expire);
         map.put("url","/sell/seller/order/list");
-        return new ModelAndView("common/success");
+        return new ModelAndView("common/success",map);
     }
 
     @GetMapping("/logout")
@@ -108,78 +114,5 @@ public class SellerLoginController {
             CookieUtil.set(response, CookieConstant.TOKEN,null,0);
         }
         return new ModelAndView("login/login");
-    }
-
-    @GetMapping("/create")
-    public ModelAndView createOrUpdate(@RequestParam(value = "sign",defaultValue = "0") String sign,
-                                       Map<String,Object> map){
-        map.put("sign",sign);
-        return new ModelAndView("login/registered");
-    }
-    @PostMapping("/registered")
-    public ModelAndView registered(String username,String phone,String password,
-                                   String code,Map<String,Object> map){
-        SellerInfo sellerInfo = loginService.findByPhone(phone);
-        if (StringUtil.haslength(username)&&StringUtil.haslength(password)&&StringUtil.haslength(code)&&StringUtil.haslength(phone)){
-            if (sellerInfo!=null){
-                map.put("msg","亲，该手机号已经注册了呦");
-                map.put("url","/sell/seller/login/create");
-                return new ModelAndView("common/error",map);
-            }
-            if (phone.length()!=11){
-                map.put("msg","亲，该手机号输入错误了呦");
-                map.put("url","/sell/seller/login/create");
-                return new ModelAndView("common/error",map);
-            }
-            String sendCode = (String) redisTemplate.opsForValue().get("param");
-            if (!code.equals(sendCode)){
-                map.put("msg","亲，验证码输错了呦");
-                map.put("url","/sell/seller/login/create");
-                return new ModelAndView("common/error",map);
-            }
-        }else {
-            map.put("sign","0");
-            return new ModelAndView("login/registered");
-        }
-        loginService.saveSeller(username,phone,password);
-        map.put("url","/sell/seller/login/login");
-        return new ModelAndView("common/success",map);
-    }
-
-    @PostMapping("/forget")
-    public ModelAndView forgetPassword(String username,String phone,String password,
-                                       String code,Map<String,Object> map){
-        SellerInfo sellerInfo = loginService.findByPhone(phone);
-        if (StringUtil.haslength(username)&&StringUtil.haslength(password)&&StringUtil.haslength(code)&&StringUtil.haslength(phone)){
-            if (sellerInfo!=null){
-                if (!sellerInfo.getUsername().equals(username)){
-                    map.put("msg","亲，名称输错了呦，再想想吧");
-                    map.put("url","/sell/seller/login/create?sign=1");
-                    return new ModelAndView("common/error",map);
-                }
-                if (!sellerInfo.getPhone().equals(phone)){
-                    map.put("msg","亲，手机号输错了呦，再想想吧");
-                    map.put("url","/sell/seller/login/create?sign=1");
-                    return new ModelAndView("common/error",map);
-                }
-            }else {
-                map.put("msg","亲，该手机号不存在呦");
-                map.put("url","/sell/seller/login/create?sign=1");
-                return new ModelAndView("common/error",map);
-            }
-            String sendCode = (String) redisTemplate.opsForValue().get("param");
-            if (!code.equals(sendCode)){
-                map.put("msg","亲，验证码输错了呦");
-                map.put("url","/sell/seller/login/create?sign=1");
-                return new ModelAndView("common/error",map);
-            }
-        }else {
-            map.put("sign","1");
-            return new ModelAndView("login/registered");
-        }
-        sellerInfo.setPassword(password);
-        loginService.save(sellerInfo);
-        map.put("url","/sell/seller/login/login");
-        return new ModelAndView("common/success",map);
     }
 }

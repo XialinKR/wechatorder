@@ -143,7 +143,7 @@ public class OrderServiceImpl implements OrderService{
         //如果已支付，需要退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())){
             //TODO
-//            payService.refund(orderDTO);
+            payService.refund(orderDTO);
         }
         return orderDTO;
     }
@@ -178,6 +178,7 @@ public class OrderServiceImpl implements OrderService{
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
         //判断支付状态
+        System.out.println(orderDTO.getPayStatus());
         if (!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())){
             log.error("【订单支付完成】订单支付状态不正确，orderDTO={}",orderDTO);
             throw new SellException(ResultEnum.ORDER_PAY_STATUS_ERROR);

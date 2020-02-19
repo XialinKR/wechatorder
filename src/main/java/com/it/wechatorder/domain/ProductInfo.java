@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.it.wechatorder.enums.ProductStatusEnum;
 import com.it.wechatorder.uitls.EnumUtil;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,7 +14,10 @@ import java.util.Date;
 
 @Data
 @Entity
+@DynamicUpdate
 public class ProductInfo implements Serializable{
+
+    private static final long serialVersionUID = 929843091788242327L;
 
     @Id
     private String productId;

@@ -12,5 +12,4 @@ public class WechatorderApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

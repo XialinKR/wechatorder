@@ -16,7 +16,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>订单id</th>
+                            <th>订单编号</th>
                             <th>订单总金额</th>
                         </tr>
                         </thead>
@@ -34,7 +34,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>商品id</th>
+                            <th>商品编号</th>
                             <th>商品名称</th>
                             <th>价格</th>
                             <th>数量</th>

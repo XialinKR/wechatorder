@@ -49,5 +49,4 @@ public class LoginServiceImpl implements LoginService{
     public void save(SellerInfo sellerInfo) {
         sellerInfoRepository.save(sellerInfo);
     }
-
 }

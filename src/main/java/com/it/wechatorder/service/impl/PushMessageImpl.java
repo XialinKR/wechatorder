@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,16 +32,15 @@ public class PushMessageImpl implements PushMessage{
         WxMpTemplateMessage wxMpTemplateMessage = new WxMpTemplateMessage();
         wxMpTemplateMessage.setTemplateId(wechatAccountConfig.getTemplateId().get("orderStatus"));
         wxMpTemplateMessage.setToUser(orderDTO.getBuyerOpenid());
-//        List<WxMpTemplateData> data = Arrays.asList(
-//                new WxMpTemplateData("first","亲，请记得收货。"),
-//                new WxMpTemplateData("keyword1","微信点餐"),
-//                new WxMpTemplateData("keyword2","18。"),
-//                new WxMpTemplateData("keyword3",orderDTO.getOrderId()),
-//                new WxMpTemplateData("keyword4",orderDTO.getOrderStatusEnum().getMessage()),
-//                new WxMpTemplateData("keyword5","￥"+orderDTO.getOrderAmount()),
-//                new WxMpTemplateData("remark","欢迎再次光临！")
-//        );
-//        wxMpTemplateMessage.setData(data);
+        List<WxMpTemplateData> data = Arrays.asList(
+                new WxMpTemplateData("first","亲，请记得收货。"),
+                new WxMpTemplateData("keyword1",orderDTO.getOrderId()),
+                new WxMpTemplateData("keyword2","微信点餐"),
+                new WxMpTemplateData("keyword3","￥"+orderDTO.getOrderAmount()),
+                new WxMpTemplateData("keyword4",orderDTO.getCreateTime()+""),
+                new WxMpTemplateData("remark","欢迎再次光临！")
+        );
+        wxMpTemplateMessage.setData(data);
         try{
             wxMpService.getTemplateMsgService().sendTemplateMsg(wxMpTemplateMessage);
         }catch (WxErrorException e){

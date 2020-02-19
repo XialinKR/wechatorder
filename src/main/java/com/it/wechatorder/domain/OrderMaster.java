@@ -7,14 +7,16 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @Entity
 @DynamicUpdate
-public class OrderMaster {
+public class OrderMaster implements Serializable {
 
+    private static final long serialVersionUID = -6907075040601105260L;
     @Id
     /*订单id*/
     private String orderId;

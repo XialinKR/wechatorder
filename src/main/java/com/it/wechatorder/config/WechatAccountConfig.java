@@ -13,6 +13,8 @@ public class WechatAccountConfig {
 
     //公众号appid
     private String mpAppId;
+    //公众号appid
+    private String mpAppId1;
     //公众号appSercet
     private String mpAppSecret;
     //开放平台appid

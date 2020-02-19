@@ -9,5 +9,6 @@ public interface LoginService {
     void saveSeller(String username, String phone, String password);
 
     SellerInfo findByPhone(String phone);
+
     void save(SellerInfo sellerInfo);
 }

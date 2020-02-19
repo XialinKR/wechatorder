@@ -65,7 +65,7 @@
                         <input type="password" class="form-control" id="exampleInputEmail2" placeholder="password" name="password" value="${password!''}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputName2">验证码</label> <label for="exampleInputName2" class="col-md-offset-5"><a href="/sell/seller/login/create?sign='1'">Forget password ?</a></label>
+                        <label for="exampleInputName2">验证码</label>
                     </div>
                     <div class="form-group button">
                         <input type="text" class="form-control" id="exampleInputEmail2" placeholder="" name="code" value="${code!''}">
@@ -73,10 +73,6 @@
                     </div>
                     <div class="xy-center form-group">
                         <input type="submit" class="form-control" value="Sign in"  style="background-color: #28A745">
-                        <#--<button type="button" class="btn btn-default"><a href="/sell/seller/login/create">Registered</a></button>-->
-                    </div>
-                    <div class="form-group xy-center">
-                        New to Sell?<a href="/sell/seller/login/create">&nbsp;Create an account.</a>
                     </div>
 
                 </form>
@@ -94,7 +90,8 @@
                 var phoneValue = $(":text[name='phone']").val();
                 // var passwordValue = $(":password[name='password']").val();
                 // var sendData = {phone:phoneValue};
-                $.post("/sell/seller/login/send",phoneValue,function (backData) {
+                console.log(phoneValue)
+                $.post("/sell/seller/login/send",{phone:phoneValue},function (backData) {
 
                 })
             })

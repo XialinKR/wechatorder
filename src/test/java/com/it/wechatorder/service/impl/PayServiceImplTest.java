@@ -22,6 +22,6 @@ public class PayServiceImplTest extends WechatorderApplicationTests{
     @Test
     public void create() {
         OrderDTO orderDTO = orderService.findOne("1560396238748a4d45f");
-        payService.create(orderDTO);
+//        payService.create(orderDTO);
     }
 }

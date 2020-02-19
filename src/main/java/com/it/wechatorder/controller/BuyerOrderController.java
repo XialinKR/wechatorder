@@ -59,7 +59,7 @@ public class BuyerOrderController {
     public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid,
                                @RequestParam(value = "page",defaultValue = "0") Integer page,
                                @RequestParam(value = "size",defaultValue = "10") Integer size){
-        if (StringUtils.isEmpty(openid)){
+        if (StringUtils.isEmpty("oTgZpwag4mHY1vnWTIUf8PTTI-aM")){
             log.error("【查询订单列表】openid为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
@@ -71,7 +71,7 @@ public class BuyerOrderController {
     //订单详情
     @GetMapping("/detail")
     public ResultVO<List<OrderDTO>> detail(String openid,String orderId){
-        OrderDTO orderDTO = buyerService.findOrderOne(openid,orderId);
+        OrderDTO orderDTO = buyerService.findOrderOne("oTgZpwag4mHY1vnWTIUf8PTTI-aM",orderId);
         return ResultVOUtil.success(orderDTO);
     }
 
@@ -79,7 +79,7 @@ public class BuyerOrderController {
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid")String openid,
                            @RequestParam("orderId")String orderId){
-        buyerService.cancelOrder(openid,orderId);
+        buyerService.cancelOrder("oTgZpwag4mHY1vnWTIUf8PTTI-aM",orderId);
         return ResultVOUtil.success();
     }
 }

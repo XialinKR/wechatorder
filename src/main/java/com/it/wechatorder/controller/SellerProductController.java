@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +46,8 @@ public class SellerProductController {
 
         PageRequest pageRequest = new PageRequest(page-1,size);
         Page<ProductInfo>  productInfoPage= productService.findAll(pageRequest);
+        List<ProductCategory> productCategoryList = categoryService.findAll();
+        map.put("productCategoryList",productCategoryList);
         map.put("productInfoPage",productInfoPage);
         map.put("currentPage",page);
         map.put("size",size);
@@ -92,7 +95,9 @@ public class SellerProductController {
     }
 
     @PostMapping("/save")
-    @CacheEvict(cacheNames = "project",key = "123")
+//    @Cacheable(cacheNames = "product", key = "456")
+//    @CachePut(cacheNames = "product", key = "123")
+    @CacheEvict(cacheNames = "product", allEntries = true, beforeInvocation = true)
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {
